@@ -23,6 +23,16 @@
          <section class="content">
             <h1>Venues</h1>
             <div class="card-group">
+            <div class="card-group">
+                  <p>
+                     Showing <span th:text="${(venue.matches.number*pageSize)}"></span> - <span  th:text="${(venue.matches.number*pageSize) + venue.matches.numberOfElements}"></span> of <span  th:text="${venue.matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=0'}" > << </a>&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number-1}}" > < </a>&nbsp;&nbsp;
+                     <span  th:text="${venue.matches.number+1}"></span>&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number+1}}" > > </a>&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
+                  </p>
+               </div>
                <div class="card-group">
                   <div class="card" style="flex: 0 0 100%; margin: 10px;">
                      <h5 class="card-title"><span th:text="${venue.name}">Name</span>, <span class="card-title" th:text="${venue.city}">Name</span></h5>
@@ -44,16 +54,16 @@
                         <a href="#" target="_blank" th:href="@{'/matches/' + ${match.id}}" class="btn btn-primary">View match details</a>
                      </div>
                   </div>
-                  <div class="card-group">
-                     <p>
-                        Showing <span  th:text="${venue.matches.numberOfElements}"></span> of <span  th:text="${venue.matches.totalElements}"></span> matches.&nbsp;&nbsp;
-                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=0'}" > << </a>&nbsp;&nbsp;
-                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number-1}}" > < </a>&nbsp;&nbsp;
-                        <span  th:text="${venue.matches.number+1}"></span>&nbsp;&nbsp;
-                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number+1}}" > > </a>&nbsp;&nbsp;
-                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
-                     </p>
-                  </div>
+               </div>
+               <div class="card-group">
+                  <p>
+                     Showing <span th:text="${(venue.matches.number*pageSize)}"></span> - <span  th:text="${(venue.matches.number*pageSize) + venue.matches.numberOfElements}"></span> of <span  th:text="${venue.matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=0'}" > << </a>&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number-1}}" > < </a>&nbsp;&nbsp;
+                     <span  th:text="${venue.matches.number+1}"></span>&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number+1}}" > > </a>&nbsp;&nbsp;
+                     <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
+                  </p>
                </div>
             </div>
          </section>

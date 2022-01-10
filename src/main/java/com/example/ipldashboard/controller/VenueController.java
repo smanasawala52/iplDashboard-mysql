@@ -33,6 +33,10 @@ public class VenueController {
 			@PathVariable("venueName") String venueName,
 			@RequestParam(defaultValue = "0", name = "cp", required = false) int cp) {
 		ModelAndView modelAndView = new ModelAndView("venueDetails");
+		if(cp<=0) {
+			cp=0;
+		}
+		modelAndView.addObject("pageSize", 10);
 		modelAndView.addObject("venue",
 				venueService.getVenueByName(venueName, cp));
 		modelAndView.addObject("pageBaseUrl", "/venue/" + venueName);

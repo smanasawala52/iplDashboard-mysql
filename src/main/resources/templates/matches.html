@@ -24,7 +24,7 @@
             <h1>Latest Matches</h1>
             <div class="card-group">
                <p>
-                  Showing <span  th:text="${matches.numberOfElements}"></span> of <span  th:text="${matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                  Showing <span th:text="${(matches.number*pageSize)}"></span> - <span  th:text="${(matches.number*pageSize) + matches.numberOfElements}"></span> of <span  th:text="${matches.totalElements}"></span> matches.&nbsp;&nbsp;
                   <a href="#" th:href="@{'/matches?cp=0'}" > << </a>&nbsp;&nbsp;
                   <a href="#" th:href="@{'/matches?cp=' + ${matches.number-1}}" > < </a>&nbsp;&nbsp;
                   <span  th:text="${matches.number+1}"></span>&nbsp;&nbsp;
@@ -48,7 +48,7 @@
             </div>
             <div class="card-group">
                <p>
-                  Showing <span  th:text="${matches.numberOfElements}"></span> of <span  th:text="${matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                  Showing <span th:text="${(matches.number*pageSize)}"></span> - <span  th:text="${(matches.number*pageSize) + matches.numberOfElements}"></span> of <span  th:text="${matches.totalElements}"></span> matches.&nbsp;&nbsp;
                   <a href="#" th:href="@{'/matches?cp=0'}" > << </a>&nbsp;&nbsp;
                   <a href="#" th:href="@{'/matches?cp=' + ${matches.number-1}}" > < </a>&nbsp;&nbsp;
                   <span  th:text="${matches.number+1}"></span>&nbsp;&nbsp;

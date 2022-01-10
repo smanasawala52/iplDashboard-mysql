@@ -23,9 +23,10 @@ public class MatchController {
 	public ModelAndView getMatches(
 			@RequestParam(defaultValue = "0", name = "cp", required = false) int cp) {
 		ModelAndView modelAndView = new ModelAndView("matches");
-		if (cp < 0) {
-			cp = 0;
+		if(cp<=0) {
+			cp=0;
 		}
+		modelAndView.addObject("pageSize", PAGE_SIZE);
 		Page<Match> page = matchService.getMatches(cp, PAGE_SIZE);
 		modelAndView.addObject("matches", page);
 		modelAndView.addObject("hasNext", page.hasNext());

@@ -58,6 +58,16 @@
                </div>
                <div  th:each="team: ${teams}">
                   <h1  th:if="${team.matches}">Latest Matches</h1>
+                  <div class="card-group" th:if="${team.matches}">
+                     <p>
+                        Showing <span th:text="${(team.matches.number*pageSize)}"></span> - <span  th:text="${(team.matches.number*pageSize) + team.matches.numberOfElements}"></span> of <span  th:text="${team.matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=0'}" > << </a>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=' + ${team.matches.number-1}}" > < </a>&nbsp;&nbsp;
+                        <span  th:text="${team.matches.number+1}"></span>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=' + ${team.matches.number+1}}" > > </a>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=' + ${team.matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
+                     </p>
+                  </div>
                   <div class="card-group">
                      <div class="card-group">
                         <div class="card" style="flex: 0 0 45%; margin: 10px;" th:each="match: ${team.matches}">
@@ -72,7 +82,7 @@
                   </div>
                   <div class="card-group" th:if="${team.matches}">
                      <p>
-                        Showing <span  th:text="${team.matches.numberOfElements}"></span> of <span  th:text="${team.matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                        Showing <span th:text="${(team.matches.number*pageSize)}"></span> - <span  th:text="${(team.matches.number*pageSize) + team.matches.numberOfElements}"></span> of <span  th:text="${team.matches.totalElements}"></span> matches.&nbsp;&nbsp;
                         <a href="#" th:href="@{${pageBaseUrl}+'&cp=0'}" > << </a>&nbsp;&nbsp;
                         <a href="#" th:href="@{${pageBaseUrl}+'&cp=' + ${team.matches.number-1}}" > < </a>&nbsp;&nbsp;
                         <span  th:text="${team.matches.number+1}"></span>&nbsp;&nbsp;
