@@ -88,6 +88,8 @@ public class TeamService {
 							x.setTotalWinsByWikets(x.getTotalWinsByWikets()
 									+ y.getTotalWinsByWikets());
 							x.getTeams().addAll(y.getTeams());
+							x.setTotalWinsPercent(populateWinsPercent(
+									x.getTotalWins(), x.getTotalMatches()));
 							return x;
 						})).values());;
 		return teams;
@@ -223,6 +225,15 @@ public class TeamService {
 			}).collect(Collectors.toList());
 			return teams;
 		}
+	}
+
+	private double populateWinsPercent(long totalWins, long totalMatches) {
+		double totalWinsPercent = 0;
+		if (totalWins > 0 && totalMatches > 0) {
+			totalWinsPercent = (totalWins * 100 / totalMatches);
+		}
+		totalWinsPercent = (((int) totalWinsPercent * 100) / 100);
+		return totalWinsPercent;
 	}
 
 }

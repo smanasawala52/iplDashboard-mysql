@@ -40,6 +40,8 @@ public class TeamBuilder {
 	 */
 	public TeamBuilder setTotalMatches(long totalMatches) {
 		this.team.setTotalMatches(totalMatches);
+		this.team.setTotalWinsPercent(populateWinsPercent(
+				this.team.getTotalWins(), this.team.getTotalMatches()));
 		return this;
 	}
 
@@ -49,6 +51,8 @@ public class TeamBuilder {
 	 */
 	public TeamBuilder setTotalWins(long totalWins) {
 		this.team.setTotalWins(totalWins);
+		this.team.setTotalWinsPercent(populateWinsPercent(
+				this.team.getTotalWins(), this.team.getTotalMatches()));
 		return this;
 	}
 
@@ -149,6 +153,15 @@ public class TeamBuilder {
 	public TeamBuilder setTotalWinsByRuns(long totalWinsByRuns) {
 		this.team.setTotalWinsByRuns(totalWinsByRuns);
 		return this;
+	}
+
+	private double populateWinsPercent(long totalWins, long totalMatches) {
+		double totalWinsPercent = 0;
+		if (totalWins > 0 && totalMatches > 0) {
+			totalWinsPercent = (totalWins * 100 / totalMatches);
+		}
+		totalWinsPercent = (((int) totalWinsPercent * 100) / 100);
+		return totalWinsPercent;
 	}
 
 }

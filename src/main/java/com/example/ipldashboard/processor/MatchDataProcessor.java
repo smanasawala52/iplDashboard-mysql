@@ -36,6 +36,11 @@ public class MatchDataProcessor implements ItemProcessor<MatchInput, Match> {
 					.equalsIgnoreCase("Sharjah Cricket Stadium")) {
 				match.setCity("Sharjah");
 			}
+			if (matchInput.getVenue()
+					.equalsIgnoreCase("M Chinnaswamy Stadium")) {
+				match.setVenue("M.Chinnaswamy Stadium");
+				match.setCity("Bengaluru");
+			}
 
 			String firstInningsTeam = matchInput.getToss_winner()
 					.equals(matchInput.getTeam1())

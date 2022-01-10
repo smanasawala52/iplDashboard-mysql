@@ -58,8 +58,8 @@
                <div class="card-group">
                   <div class="card" style="flex: 0 0 18%; margin: 5px;" th:each="city: ${cities}">
                      <div class="card-body">
-                        <h6 class="card-title" th:text="${city}"></h6>
-                        <a href="#" target="_blank" th:href="@{'/city/' + ${city}}" class="btn btn-primary">View venues</a>
+                        <h6 class="card-title" th:text="${city.key}"></h6>
+                        <a href="#" target="_blank" th:href="@{'/city/' + ${city.key}}" class="btn btn-primary">View venues</a>
                      </div>
                   </div>
                </div>
@@ -72,7 +72,7 @@
                         <h5 class="card-title" th:text="${venue.name}">Name</h5>
                         <h4 class="card-title" th:text="${venue.city}">City</h4>
 	                    <p class="card-text">Total Matches Played: <small class="text-muted" th:text="${venue.totalMatches}"></small></p>
-	               		<p class="card-text">Total Matches Results: <small class="text-muted" th:text="${venue.totalWins}"></small></p>
+	               		<p class="card-text">Total Matches Resulted Win or Loose: <small class="text-muted" th:text="${venue.totalWins}"></small></p>
 	               		<p class="card-text" th:if="${venue.totalNoResult>0}">Total Matches No Results: <small class="text-muted" th:text="${venue.totalNoResult}"></small></p>
                         <a href="#" target="_blank" th:href="@{'/venue/' + ${venue.name}}" class="btn btn-primary">View venue</a>
                      </div>

@@ -19,6 +19,8 @@ public class Team implements Comparable<Team> {
 	private String name;
 	private long totalMatches;
 	private long totalWins;
+	@Transient
+	private double totalWinsPercent;
 	private long totalTies;
 	private long totalNoResult;
 	private long totalTossWins;
@@ -29,6 +31,7 @@ public class Team implements Comparable<Team> {
 	private long totalWinsBatFirst;
 	private long totalWinsFieldFirst;
 	private long totalWinsByWikets;
+
 	private long totalWinsByRuns;
 
 	@Transient
@@ -336,5 +339,20 @@ public class Team implements Comparable<Team> {
 			return this.name.compareTo(o.name);
 		}
 		return 0;
+	}
+
+	/**
+	 * @return the totalWinsPercent
+	 */
+	public double getTotalWinsPercent() {
+		return totalWinsPercent;
+	}
+
+	/**
+	 * @param totalWinsPercent
+	 *            the totalWinsPercent to set
+	 */
+	public void setTotalWinsPercent(double totalWinsPercent) {
+		this.totalWinsPercent = totalWinsPercent;
 	}
 }

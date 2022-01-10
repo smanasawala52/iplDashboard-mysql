@@ -40,8 +40,9 @@
                      <div class="card" style="margin: 20px;"  th:each="team: ${teams}">
                         <div class="card-body">
                            <h6 class="card-title" th:text="${team.name}">Name</h6>
-                           <p class="card-text">Total Matches Played: <small class="text-muted" th:text="${team.totalMatches}"></small></p>
-                           <p class="card-text">Total Matches Won: <small class="text-muted" th:text="${team.totalWins}"></small></p>
+                           <p class="card-text">Number of Matches Played: <small class="text-muted" th:text="${team.totalMatches}"></small></p>
+                           <p class="card-text">Number of Matches Won: <small class="text-muted" th:text="${team.totalWins}"></small></p>
+                           <p class="card-text" th:if="${team.totalWinsPercent>0}">Matches Won (Percentage): <small class="text-muted" th:text="${team.totalWinsPercent}"></small>%</p>
                            <p class="card-text" th:if="${team.totalNoResult>0}">Total Matches No Result: <small class="text-muted" th:text="${team.totalNoResult}"></small></p>
                            <p class="card-text" th:if="${team.totalTossWins>0}">Number of matches won the toss: <small class="text-muted" th:text="${team.totalTossWins}"></small></p>
                            <p class="card-text" th:if="${team.totalTossWinBatFirst>0}">Number of matches won the toss and elected to Bat first: <small class="text-muted" th:text="${team.totalTossWinBatFirst}"></small></p>
@@ -109,7 +110,7 @@
                            <div class="card-body">
                               <h6 class="card-title" th:text="${match.name}">Name</h6>
                               <p class="card-text">Total Matches Played: <small class="text-muted" th:text="${match.totalMatches}"></small></p>
-                              <p class="card-text">Total Matches Won by <small class="text-muted" th:text="${team.name}"></small>: <small class="text-muted" th:text="${match.totalWins}"></small></p>
+                              <p class="card-text">Total Matches Won by <small class="text-muted" th:text="${team.name}"></small>: <small class="text-muted" th:text="${match.totalWins}"></small> <span th:if="${match.totalWinsPercent>0}">(<small class="text-muted" th:text="${match.totalWinsPercent}"></small>%)</span></p>
                               <p class="card-text">Total Matches Won by <small class="text-muted" th:text="${match.name}"></small>: <small class="text-muted" th:text="${match.totalMatches - match.totalWins}"></small></p>
                               <a href="#" target="_blank" th:href="@{'/teams/' + ${team.name} + '/' + ${match.name}}" class="btn btn-primary">Compare Statistics</a>
                               <p class="card-text">Latest Matches
