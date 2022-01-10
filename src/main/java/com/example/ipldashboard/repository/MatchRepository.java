@@ -2,12 +2,13 @@ package com.example.ipldashboard.repository;
 
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.example.ipldashboard.model.ICity;
 import com.example.ipldashboard.model.ITeamCount;
 import com.example.ipldashboard.model.IVenueCount;
 import com.example.ipldashboard.model.Match;
@@ -47,6 +48,9 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
 
 	@Query("SELECT c.venue as venueName, c.city as city, COUNT(c.id) as totalMatches, sum(case when c.result='runs' OR c.result='wickets' then 1 else 0 end) AS totalWins, sum(case when c.result='tie'   then 1 else 0 end) AS totalTies, sum(case when c.result='NA'    then 1 else 0 end) AS totalNoResult, sum(case when c.tossDecision='bat' then 1 else 0 end) AS totalTossWinBatFirst, sum(case when  c.tossDecision='field' then 1 else 0 end) AS totalTossWinFieldFirst, sum(case when c.winner=c.tossWinner and c.tossDecision='bat' then 1 else 0 end) AS totalWinsBatFirst, sum(case when c.winner=c.tossWinner and c.tossDecision='field' then 1 else 0 end) AS totalWinsFieldFirst, sum(case when c.result='runs' then 1 else 0 end) AS totalWinsByRuns, sum(case when c.result='wickets' then 1 else 0 end) AS totalWinsByWikets FROM Match AS c GROUP BY c.venue,c.city ORDER BY c.venue,c.city")
 	List<IVenueCount> countTotalMatchesByVenue();
+
+	@Query("SELECT team1 as team1, team2 as team2 FROM Match where city != 'NA' and venue=:venue order by team1, team2")
+	List<ICity> getTeam1ByVenueOrderByTeam1(String venue);
 
 	Page<Match> getByTeam1OrTeam2OrderByDateDesc(String team1, String team2,
 			Pageable p);

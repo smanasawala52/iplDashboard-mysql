@@ -112,7 +112,7 @@
                               <p class="card-text">Total Matches Played: <small class="text-muted" th:text="${match.totalMatches}"></small></p>
                               <p class="card-text">Total Matches Won by <small class="text-muted" th:text="${team.name}"></small>: <small class="text-muted" th:text="${match.totalWins}"></small> <span th:if="${match.totalWinsPercent>0}">(<small class="text-muted" th:text="${match.totalWinsPercent}"></small>%)</span></p>
                               <p class="card-text">Total Matches Won by <small class="text-muted" th:text="${match.name}"></small>: <small class="text-muted" th:text="${match.totalMatches - match.totalWins}"></small></p>
-                              <a href="#" target="_blank" th:href="@{'/teams/' + ${team.name} + '/' + ${match.name}}" class="btn btn-primary">Compare Statistics</a>
+                              <a href="#" target="_blank" th:href="@{'/teams/' + ${team.name} + '/' + ${match.name} + '?venue='+ ${venue}}" class="btn btn-primary">Compare Statistics</a>
                               <p class="card-text">Latest Matches
                               <div th:each="matchTemp: ${match.matches}">
                                  <span th:text="${matchTemp.team1}">Name</span> VS <span class="card-title" th:text="${matchTemp.team2}">Name</span>

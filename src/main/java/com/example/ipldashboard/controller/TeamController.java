@@ -31,8 +31,11 @@ public class TeamController {
 			@RequestParam(defaultValue = "0", name = "cp", required = false) int cp,
 			@RequestParam(defaultValue = "", name = "venue", required = false) String venue) {
 		ModelAndView modelAndView = new ModelAndView("teamDetails");
-		if(cp<=0) {
-			cp=0;
+		if (cp <= 0) {
+			cp = 0;
+		}
+		if (venue == null || venue.equals("null")) {
+			venue = "";
 		}
 		modelAndView.addObject("pageSize", 10);
 		modelAndView.addObject("teams", teamService
@@ -59,9 +62,13 @@ public class TeamController {
 		ModelAndView modelAndView = new ModelAndView("teamDetails");
 		List<Team> teams = teamService.getTeamByName1(teamName1, cp, venue, 10);
 		modelAndView.addObject("teams", teams);
-		if(cp<=0) {
-			cp=0;
+		if (cp <= 0) {
+			cp = 0;
 		}
+		if (venue == null || venue.equals("null")) {
+			venue = "";
+		}
+
 		modelAndView.addObject("pageSize", 10);
 		if (!teamName1.isEmpty()) {
 			modelAndView.addObject("teamName1", teamName1);

@@ -51,11 +51,31 @@ public class VenueService {
 		return cities;
 	}
 
+	/**
+	 * @param venueName
+	 * @param cp
+	 * @return
+	 */
 	public Venue getVenueByName(String venueName, int cp) {
 		Venue venue = venueRepository.getByName(venueName);
 		if (venue != null) {
 			venue.setMatches(matchRepository.getByVenueOrderByDateDesc(
 					venueName, PageRequest.of(cp, PAGE_SIZE)));
+			List<ICity> temp = matchRepository
+					.getTeam1ByVenueOrderByTeam1(venueName);
+			if (temp != null && !temp.isEmpty()) {
+				for (ICity t1 : temp) {
+					venue.getTeams().add(t1.getTeam1());
+					venue.getTeams().add(t1.getTeam2());
+				}
+			}
+			// temp.stream().map(x -> {
+			// Arrays.asList(x.getTeam1(),x.getTeam2())
+			// }).collect(Collectors.toSet());
+			// venue.getTeams().addAll();
+			// venue.getTeams().addAll(
+			// matchRepository.getTeam2ByVenueOrderByTeam2(venueName));
+			System.out.println(venue.getTeams());
 		}
 		return venue;
 	}
