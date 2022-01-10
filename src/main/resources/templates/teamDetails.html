@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <title>IPL Dashboard</title>
+      <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width" />
+      <base href="/" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+         crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <div class="container">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-bottom: 20px">
+            <div class="container-fluid">
+               <a class="navbar-brand" href="/">IPL Dashboard</a>
+            </div>
+         </nav>
+            <h3  th:if="${venue}">
+               Venue: 
+               <div th:text="${venue}">Name</div>
+            </h3>
+            <h3  th:if="${teamName1}">
+               Team: 
+               <div th:text="${teamName1}">Name</div>
+            </h3>
+            <h3  th:if="${teamName2}">
+               Team Compare: 
+               <div th:text="${teamName2}">Name</div>
+            </h3>
+         <section class="content">
+            <div>
+               <h1>Team Details</h1>
+               <div class="card-group">
+                  <div class="card-group">
+                     <div class="card" style="margin: 20px;"  th:each="team: ${teams}">
+                        <div class="card-body">
+                           <h6 class="card-title" th:text="${team.name}">Name</h6>
+                           <p class="card-text">Total Matches Played: <small class="text-muted" th:text="${team.totalMatches}"></small></p>
+                           <p class="card-text">Total Matches Won: <small class="text-muted" th:text="${team.totalWins}"></small></p>
+                           <p class="card-text" th:if="${team.totalNoResult>0}">Total Matches No Result: <small class="text-muted" th:text="${team.totalNoResult}"></small></p>
+                           <p class="card-text" th:if="${team.totalTossWins>0}">Number of matches won the toss: <small class="text-muted" th:text="${team.totalTossWins}"></small></p>
+                           <p class="card-text" th:if="${team.totalTossWinBatFirst>0}">Number of matches won the toss and elected to Bat first: <small class="text-muted" th:text="${team.totalTossWinBatFirst}"></small></p>
+                           <p class="card-text" th:if="${team.totalTossWinFieldFirst>0}">Number of matches won the toss and elected to Field first: <small class="text-muted" th:text="${team.totalTossWinFieldFirst}"></small></p>
+                           <p class="card-text" th:if="${team.totalBatFirst>0}">Number of matches Bat first: <small class="text-muted" th:text="${team.totalBatFirst}"></small></p>
+                           <p class="card-text" th:if="${team.totalWinsBatFirst>0}">Number of matches Bat first and won the match: <small class="text-muted" th:text="${team.totalWinsBatFirst}"></small></p>
+                           <p class="card-text" th:if="${team.totalFieldFirst>0}">Number of matches Field first: <small class="text-muted" th:text="${team.totalFieldFirst}"></small></p>
+                           <p class="card-text" th:if="${team.totalWinsFieldFirst>0}">Number of matches Field first and won the match: <small class="text-muted" th:text="${team.totalWinsFieldFirst}"></small></p>
+                           <p class="card-text" th:if="${team.totalWinsByRuns>0}">Number of matches won by runs: <small class="text-muted" th:text="${team.totalWinsByRuns}"></small></p>
+                           <p class="card-text" th:if="${team.totalWinsByWikets>0}">Number of matches won by wickets: <small class="text-muted" th:text="${team.totalWinsByWikets}"></small></p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div  th:each="team: ${teams}">
+                  <h1  th:if="${team.matches}">Latest Matches</h1>
+                  <div class="card-group">
+                     <div class="card-group">
+                        <div class="card" style="flex: 0 0 45%; margin: 10px;" th:each="match: ${team.matches}">
+                           <div class="card-body">
+                              <h6 class="card-title"> <span th:text="${match.team1}">Name</span> VS <span class="card-title" th:text="${match.team2}">Name</span></h6>
+                              <p class="card-text">Date: <small class="text-muted" th:text="${match.date}"></small>, Venue: <small class="text-muted" th:text="${match.venue}"></small>, <small class="text-muted" th:text="${match.city}"></small></p>
+                              <p class="card-text"  th:if="${match.result != 'NA'}"><small class="text-muted" th:text="${match.winner}"></small> won match by  <small class="text-muted" th:text="${match.resultMargin}"></small> <small class="text-muted" th:text="${match.result}"></small>.</p>
+                              <a href="#" target="_blank" th:href="@{'/matches/' + ${match.id}}" class="btn btn-primary">View match details</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card-group" th:if="${team.matches}">
+                     <p>
+                        Showing <span  th:text="${team.matches.numberOfElements}"></span> of <span  th:text="${team.matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=0'}" > << </a>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=' + ${team.matches.number-1}}" > < </a>&nbsp;&nbsp;
+                        <span  th:text="${team.matches.number+1}"></span>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=' + ${team.matches.number+1}}" > > </a>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'&cp=' + ${team.matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
+                     </p>
+                  </div>
+                  <h1 th:if="${team.venues.size>0}">Venues</h1>
+                  <div class="card-group"  th:if="${team.venues.size>0}">
+                     <div class="card-group">
+                        <div class="card" style="flex: 0 0 27%; margin: 10px;" th:each="venue: ${team.venues}">
+                           <div class="card-body">
+                              <h6 class="card-title"> <span th:text="${venue}">Name</span></h6>
+                              <a th:if="${teamName1}" href="#" th:href="@{'/teams/' + ${teamName1} + '?venue=' + ${venue}}" class="btn btn-primary">View All <span th:text="${teamName1}"></span> at <span th:text="${venue}"></span> matches details</a><br>
+                              <a th:if="${teamName2}" href="#" th:href="@{'/teams/' + ${teamName1} + '/' + ${teamName2} + '?venue=' + ${venue}}" class="btn btn-primary">View All <span th:text="${teamName1}"></span> vs <span th:text="${teamName2}"></span> at <span th:text="${venue}"></span> matches details</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <h1  th:if="${team.teams.size>0}">Teams Comparison</h1>
+                  <div class="card-group">
+                     <div class="card-group">
+                        <div class="card" style="flex: 0 0 45%; margin: 5px;" th:each="match: ${team.teams}">
+                           <div class="card-body">
+                              <h6 class="card-title" th:text="${match.name}">Name</h6>
+                              <p class="card-text">Total Matches Played: <small class="text-muted" th:text="${match.totalMatches}"></small></p>
+                              <p class="card-text">Total Matches Won by <small class="text-muted" th:text="${team.name}"></small>: <small class="text-muted" th:text="${match.totalWins}"></small></p>
+                              <p class="card-text">Total Matches Won by <small class="text-muted" th:text="${match.name}"></small>: <small class="text-muted" th:text="${match.totalMatches - match.totalWins}"></small></p>
+                              <a href="#" target="_blank" th:href="@{'/teams/' + ${team.name} + '/' + ${match.name}}" class="btn btn-primary">Compare Statistics</a>
+                              <p class="card-text">Latest Matches
+                              <div th:each="matchTemp: ${match.matches}">
+                                 <span th:text="${matchTemp.team1}">Name</span> VS <span class="card-title" th:text="${matchTemp.team2}">Name</span>
+                                 <br> Date: <small class="text-muted" th:text="${matchTemp.date}"></small>, Venue: <small class="text-muted" th:text="${matchTemp.venue}"></small>, <small class="text-muted" th:text="${matchTemp.city}"></small>
+                                 <br>
+                                 <div  th:if="${matchTemp.result != 'NA'}"><small class="text-muted" th:text="${matchTemp.winner}"></small> won match by  <small class="text-muted" th:text="${matchTemp.resultMargin}"></small> <small class="text-muted" th:text="${matchTemp.result}"></small>.</div>
+                                 <br> <a href="#" target="_blank" th:href="@{'/matches/' + ${matchTemp.id}}" class="btn btn-primary">View match details</a>
+                              </div>
+                              </p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+      </div>
+   </body>
+</html>

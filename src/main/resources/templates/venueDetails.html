@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <title>IPL Dashboard</title>
+      <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width" />
+      <base href="/" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+         crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <div class="container">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-bottom: 20px">
+            <div class="container-fluid">
+               <a class="navbar-brand" href="/">IPL Dashboard</a>
+            </div>
+         </nav>
+         <section class="content">
+            <h1>Venues</h1>
+            <div class="card-group">
+               <div class="card-group">
+                  <div class="card" style="flex: 0 0 100%; margin: 10px;">
+                     <h5 class="card-title"><span th:text="${venue.name}">Name</span>, <span class="card-title" th:text="${venue.city}">Name</span></h5>
+                     <p class="card-text">Total Matches Played: <small class="text-muted" th:text="${venue.totalMatches}"></small></p>
+                     <p class="card-text">Total Matches Resulted either Win or Loose: <small class="text-muted" th:text="${venue.totalWins}"></small></p>
+                     <p class="card-text" th:if="${venue.totalNoResult>0}">Total Matches No Result: <small class="text-muted" th:text="${venue.totalNoResult}"></small></p>
+                     <p class="card-text" th:if="${venue.totalTossWinBatFirst>0}">Number of matches won the toss and elected to Bat first: <small class="text-muted" th:text="${venue.totalTossWinBatFirst}"></small></p>
+                     <p class="card-text" th:if="${venue.totalTossWinFieldFirst>0}">Number of matches won the toss and elected to Field first: <small class="text-muted" th:text="${venue.totalTossWinFieldFirst}"></small></p>
+                     <p class="card-text" th:if="${venue.totalWinsBatFirst>0}">Number of matches where teams Bat first and won the match: <small class="text-muted" th:text="${venue.totalWinsBatFirst}"></small></p>
+                     <p class="card-text" th:if="${venue.totalWinsFieldFirst>0}">Number of matches where teams Field first and won the match: <small class="text-muted" th:text="${venue.totalWinsFieldFirst}"></small></p>
+                     <p class="card-text" th:if="${venue.totalWinsByRuns>0}">Number of matches won by runs: <small class="text-muted" th:text="${venue.totalWinsByRuns}"></small></p>
+                     <p class="card-text" th:if="${venue.totalWinsByWikets>0}">Number of matches won by wickets: <small class="text-muted" th:text="${venue.totalWinsByWikets}"></small></p>
+                  </div>
+                  <div class="card" style="flex: 0 0 45%; margin: 5px;" th:each="match: ${venue.matches}">
+                     <div class="card-body">
+                        <h5 class="card-title"><span th:text="${match.team1}">Name</span> VS  <span class="card-title" th:text="${match.team2}">Name</span></h5>
+                        <p class="card-text">Date: <small class="text-muted" th:text="${match.date}"></small>, Venue: <small class="text-muted" th:text="${match.venue}"></small>, <small class="text-muted" th:text="${match.city}"></small></p>
+                        <p class="card-text"  th:if="${match.result != 'NA'}"><small class="text-muted" th:text="${match.winner}"></small> won match by  <small class="text-muted" th:text="${match.resultMargin}"></small> <small class="text-muted" th:text="${match.result}"></small>.</p>
+                        <a href="#" target="_blank" th:href="@{'/matches/' + ${match.id}}" class="btn btn-primary">View match details</a>
+                     </div>
+                  </div>
+                  <div class="card-group">
+                     <p>
+                        Showing <span  th:text="${venue.matches.numberOfElements}"></span> of <span  th:text="${venue.matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=0'}" > << </a>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number-1}}" > < </a>&nbsp;&nbsp;
+                        <span  th:text="${venue.matches.number+1}"></span>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.number+1}}" > > </a>&nbsp;&nbsp;
+                        <a href="#" th:href="@{${pageBaseUrl}+'?cp=' + ${venue.matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </section>
+      </div>
+   </body>
+</html>

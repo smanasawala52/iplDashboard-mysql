@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <title>IPL Dashboard</title>
+      <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width" />
+      <base href="/" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+         crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <div class="container">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-bottom: 20px">
+            <div class="container-fluid">
+               <a class="navbar-brand" href="/">IPL Dashboard</a>
+            </div>
+         </nav>
+         <section class="content">
+            <h1>Latest Matches</h1>
+            <div class="card-group">
+               <p>
+                  Showing <span  th:text="${matches.numberOfElements}"></span> of <span  th:text="${matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=0'}" > << </a>&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=' + ${matches.number-1}}" > < </a>&nbsp;&nbsp;
+                  <span  th:text="${matches.number+1}"></span>&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=' + ${matches.number+1}}" > > </a>&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=' + ${matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
+               </p>
+            </div>
+            <div class="card-group">
+               <div class="card-group">
+                  <div class="card" style="flex: 0 0 45%; margin: 10px;" th:each="match: ${matches.content}">
+                     <div class="card-body">
+                        <h6 class="card-title" th:text="${match.team1}">Name</h6>
+                        VS 
+                        <h6 class="card-title" th:text="${match.team2}">Name</h6>
+                        <p class="card-text">Date: <small class="text-muted" th:text="${match.date}"></small>, Venue: <small class="text-muted" th:text="${match.venue}"></small>, <small class="text-muted" th:text="${match.city}"></small></p>
+                        <p class="card-text"  th:if="${match.result != 'NA'}"><small class="text-muted" th:text="${match.winner}"></small> won match by  <small class="text-muted" th:text="${match.resultMargin}"></small> <small class="text-muted" th:text="${match.result}"></small>.</p>
+                        <a href="#" target="_blank" th:href="@{'/matches/' + ${match.id}}" class="btn btn-primary">View match details</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="card-group">
+               <p>
+                  Showing <span  th:text="${matches.numberOfElements}"></span> of <span  th:text="${matches.totalElements}"></span> matches.&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=0'}" > << </a>&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=' + ${matches.number-1}}" > < </a>&nbsp;&nbsp;
+                  <span  th:text="${matches.number+1}"></span>&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=' + ${matches.number+1}}" > > </a>&nbsp;&nbsp;
+                  <a href="#" th:href="@{'/matches?cp=' + ${matches.totalPages-1}}" > >> </a>&nbsp;&nbsp;
+               </p>
+            </div>
+         </section>
+      </div>
+   </body>
+</html>
